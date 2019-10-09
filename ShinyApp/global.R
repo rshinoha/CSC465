@@ -3,7 +3,7 @@ library(choroplethr)
 library(choroplethrMaps)
 library(ggplot2)
 
-#setwd("C:/Users/Ryoh/Documents/CSC465/Project/ProjectShiny")
+setwd("C:/Users/Ryoh/Documents/CSC465/Project/ProjectShinyV2")
 
 # UI/Server variables
 # ===================
@@ -31,36 +31,36 @@ richmond <- 36085
 # Colors, breaks, and lables
 # ==========================
 # All violations
-vbreaks <- c(0,2.6,2.8,3.0,3.2,3.4,3.6,10.0)
-vlabels <- c("< 2.6","2.6-2.79","2.8-2.99","3.0-3.19","3.2-3.39","3.4-3.59","> 3.6","NA")
-vcol <- c("< 2.6"='#edf8e9',"2.6-2.79"='#c7e9c0',
-          "2.8-2.99"='#a1d99b',"3.0-3.19"='#74c476',
-          "3.2-3.39"='#41ab5d',"3.4-3.59"='#238b45',
-          "> 3.6"='#005a32',"NA"='#A9A9A9')
+vbreaks <- c(0,2.5,3.0,3.5,4.0,4.5,5.0,10.0)
+vlabels <- c("< 2.5","2.5-2.99","3.0-3.49","3.5-3.99","4.0-4.49","4.5-4.99","> 5.0","NA")
+vcol <- c("< 2.5"='#edf8e9',"2.5-2.99"='#c7e9c0',
+          "3.0-3.49"='#a1d99b',"3.5-3.99"='#74c476',
+          "4.0-4.49"='#41ab5d',"4.5-4.99"='#238b45',
+          "> 5.0"='#005a32',"NA"='#000000')
 
 # Pests
-pbreaks <- c(0,0.6,0.8,1.0,1.2,1.4,1.6,3.0)
-plabels <- c("< 0.6","0.6-0.79","0.8-0.99","1.0-1.19","1.2-1.39","1.4-1.59","> 1.6","NA")
+pbreaks <- c(0,0.6,0.8,0.9,1.0,1.5,2.0,3.0)
+plabels <- c("< 0.6","0.6-0.79","0.8-0.89","0.9-0.99","1.0-1.49","1.5-1.99","> 2.0","NA")
 pcol <- c("< 0.6"='#fee5d9',"0.6-0.79"='#fcbba1',
-          "0.8-0.99"='#fc9272',"1.0-1.19"='#fb6a4a',
-          "1.2-1.39"='#ef3b2c',"1.4-1.59"='#cb181d',
-          "> 1.6"='#99000d',"NA"='#A9A9A9')
-  
+          "0.8-0.89"='#fc9272',"0.9-0.99"='#fb6a4a',
+          "1.0-1.49"='#ef3b2c',"1.5-1.99"='#cb181d',
+          "> 2.0"='#99000d',"NA"='#000000')
+
 # Handling
-hbreaks <- c(0,0.6,0.8,1.0,1.2,1.4,1.6,3.0)
-hlabels <- c("< 0.6","0.6-0.79","0.8-0.99","1.0-1.19","1.2-1.39","1.4-1.59","> 1.6","NA")
-hcol <- c("< 0.6"='#eff3ff',"0.6-0.79"='#c6dbef',
-          "0.8-0.99"='#9ecae1',"1.0-1.19"='#6baed6',
-          "1.2-1.39"='#4292c6',"1.4-1.59"='#2171b5',
-          "> 1.6"='#084594',"NA"='#A9A9A9')
-  
+hbreaks <- c(0,0.8,0.9,1.0,1.25,1.5,2.0,3.0)
+hlabels <- c("< 0.8","0.8-0.89","0.9-0.99","1.0-1.24","1.25-1.49","1.5-1.99","> 2.0","NA")
+hcol <- c("< 0.8"='#eff3ff',"0.8-0.89"='#c6dbef',
+          "0.9-0.99"='#9ecae1',"1.0-1.24"='#6baed6',
+          "1.25-1.49"='#4292c6',"1.5-1.99"='#2171b5',
+          "> 2.0"='#084594',"NA"='#000000')
+
 # Facility
-fbreaks <- c(0,1.0,1.2,1.3,1.4,1.5,1.6,3.0)
-flabels <- c("< 1.0","1.0-1.19","1.2-1.29","1.3-1.39","1.4-1.49","1.5-1.59","> 1.6","NA")
-fcol <- c("< 1.0"='#f2f0f7',"1.0-1.19"='#dadaeb',
-          "1.2-1.29"='#bcbddc',"1.3-1.39"='#9e9ac8',
-          "1.4-1.49"='#807dba',"1.5-1.59"='#6a51a3',
-          "> 1.6"='#4a1486',"NA"='#A9A9A9')
+fbreaks <- c(0,1.0,1.3,1.4,1.5,1.75,2.0,3.0)
+flabels <- c("< 1.0","1.0-1.29","1.3-1.39","1.4-1.49","1.5-1.74","1.75-1.99","> 2.0","NA")
+fcol <- c("< 1.0"='#f2f0f7',"1.0-1.29"='#dadaeb',
+          "1.3-1.39"='#bcbddc',"1.4-1.49"='#9e9ac8',
+          "1.5-1.74"='#807dba',"1.75-1.99"='#6a51a3',
+          "> 2.0"='#4a1486',"NA"='#000000')
 
 # Legends (because **** zip_choropleth and county_choropleth)
 allones <- as.numeric(c(1,1,1,1,1,1,1,1))
@@ -75,13 +75,17 @@ hlegend <- data.frame(hlegend)
 flegend <- data.frame(flegend)
 
 vlegend$vlabels <- factor(vlegend$vlabels,
-                          levels=rev(vlabels))
+                          levels=rev(c("< 2.5","2.5-2.99","3.0-3.49","3.5-3.99",
+                                       "4.0-4.49","4.5-4.99","> 5.0","NA")))
 plegend$plabels <- factor(plegend$plabels,
-                          levels=rev(plabels))
+                          levels=rev(c("< 0.6","0.6-0.79","0.8-0.89","0.9-0.99",
+                                       "1.0-1.49","1.5-1.99","> 2.0","NA")))
 hlegend$hlabels <- factor(hlegend$hlabels,
-                          levels=rev(hlabels))
+                          levels=rev(c("< 0.8","0.8-0.89","0.9-0.99","1.0-1.24",
+                                       "1.25-1.49","1.5-1.99","> 2.0","NA")))
 flegend$flabels <- factor(flegend$flabels,
-                          levels=rev(flabels))
+                          levels=rev(c("< 1.0","1.0-1.29","1.3-1.39","1.4-1.49",
+                                       "1.5-1.74","1.75-1.99","> 2.0","NA")))
 
 # Zip code-based
 # ==============
@@ -155,9 +159,186 @@ f15$region <- as.character(f15$region)
 f16$region <- as.character(f16$region)
 f17$region <- as.character(f17$region)
 
-# Funtion to highlight county: hcounty
-hcounty <- function(f){
-  data(county.map, package="choroplethrMaps", envir=environment())
-  df = county.map[county.map$region %in% f, ]
-  geom_polygon(data=df, aes(long, lat, group = group), color = "yellow", fill = NA, size = 1)
+whichchoro <- function(year,vio,boro){
+  # Borough choropleths
+  if(missing(boro)){
+    if(vio=="all"){
+      switch(year,
+             "14"=county_choropleth(bv14,county_zoom=nyc_fips) +
+               scale_fill_manual(values=vcol,breaks=vbreaks,labels=vlabels),
+             "15"=county_choropleth(bv15,county_zoom=nyc_fips) +
+               scale_fill_manual(values=vcol,breaks=vbreaks,labels=vlabels),
+             "16"=county_choropleth(bv16,county_zoom=nyc_fips) +
+               scale_fill_manual(values=vcol,breaks=vbreaks,labels=vlabels),
+             "17"=county_choropleth(bv17,county_zoom=nyc_fips) +
+               scale_fill_manual(values=vcol,breaks=vbreaks,labels=vlabels))
+    }
+    else if(vio=="pest"){
+      switch(year,
+             "14"=county_choropleth(bp14,county_zoom=nyc_fips) +
+               scale_fill_manual(values=pcol,breaks=pbreaks,labels=plabels),
+             "15"=county_choropleth(bp15,county_zoom=nyc_fips) +
+               scale_fill_manual(values=pcol,breaks=pbreaks,labels=plabels),
+             "16"=county_choropleth(bp16,county_zoom=nyc_fips) +
+               scale_fill_manual(values=pcol,breaks=pbreaks,labels=plabels),
+             "17"=county_choropleth(bp17,county_zoom=nyc_fips) +
+               scale_fill_manual(values=pcol,breaks=pbreaks,labels=plabels))
+    }
+    else if(vio=="handling"){
+      switch(year,
+             "14"=county_choropleth(bh14,county_zoom=nyc_fips) +
+               scale_fill_manual(values=hcol,breaks=hbreaks,labels=hlabels),
+             "15"=county_choropleth(bh15,county_zoom=nyc_fips) +
+               scale_fill_manual(values=hcol,breaks=hbreaks,labels=hlabels),
+             "16"=county_choropleth(bh16,county_zoom=nyc_fips) +
+               scale_fill_manual(values=hcol,breaks=hbreaks,labels=hlabels),
+             "17"=county_choropleth(bh17,county_zoom=nyc_fips) +
+               scale_fill_manual(values=hcol,breaks=hbreaks,labels=hlabels))
+    }
+    else{
+      switch(year,
+             "14"=county_choropleth(bf14,county_zoom=nyc_fips) +
+               scale_fill_manual(values=fcol,breaks=fbreaks,labels=flabels),
+             "15"=county_choropleth(bf15,county_zoom=nyc_fips) +
+               scale_fill_manual(values=fcol,breaks=fbreaks,labels=flabels),
+             "16"=county_choropleth(bf16,county_zoom=nyc_fips) +
+               scale_fill_manual(values=fcol,breaks=fbreaks,labels=flabels),
+             "17"=county_choropleth(bf17,county_zoom=nyc_fips) +
+               scale_fill_manual(values=fcol,breaks=fbreaks,labels=flabels))
+    }
+  }
+  # Zip choropleths of boroughs of choice
+  else{
+    zipboro <- switch(boro,
+                      "bronx"=bronx,
+                      "kings"=kings,
+                      "new york"=newyork,
+                      "queens"=queens,
+                      "richmond"=richmond)
+    if(vio=="all"){
+      switch(year,
+             "14"=zip_choropleth(v14[v14$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=vbreaks,values=vcol,na.value="black"),
+             "15"=zip_choropleth(v15[v15$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=vbreaks,values=vcol,na.value="black"),
+             "16"=zip_choropleth(v16[v16$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=vbreaks,values=vcol,na.value="black"),
+             "17"=zip_choropleth(v17[v17$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=vbreaks,values=vcol,na.value="black"))
+    }
+    else if(vio=="pest"){
+      switch(year,
+             "14"=zip_choropleth(p14[p14$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=pbreaks,values=pcol,na.value="black"),
+             "15"=zip_choropleth(p15[p15$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=pbreaks,values=pcol,na.value="black"),
+             "16"=zip_choropleth(p16[p16$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=pbreaks,values=pcol,na.value="black"),
+             "17"=zip_choropleth(p17[p17$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=pbreaks,values=pcol,na.value="black"))
+    }
+    else if(vio=="handling"){
+      switch(year,
+             "14"=zip_choropleth(h14[h14$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=hbreaks,values=hcol,na.value="black"),
+             "15"=zip_choropleth(h15[h15$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=hbreaks,values=hcol,na.value="black"),
+             "16"=zip_choropleth(h16[h16$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=hbreaks,values=hcol,na.value="black"),
+             "17"=zip_choropleth(h17[h17$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=hbreaks,values=hcol,na.value="black"))
+    }
+    else{
+      switch(year,
+             "14"=zip_choropleth(f14[f14$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=fbreaks,values=fcol,na.value="black"),
+             "15"=zip_choropleth(f15[f15$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=fbreaks,values=fcol,na.value="black"),
+             "16"=zip_choropleth(f16[f16$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=fbreaks,values=fcol,na.value="black"),
+             "17"=zip_choropleth(f17[f17$BORO==boro,],county_zoom=c(zipboro)) +
+               scale_fill_manual(breaks=fbreaks,values=fcol,na.value="black"))
+    }
+  }
 }
+
+chorolist <- function(type,boro){
+  l <- list()
+  if(missing(boro)){
+    for(i in 1:4){
+      l[[i]] <- whichchoro(as.character(i+13),type)
+    }
+  }
+  else{
+    for(i in 1:4){
+      l[[i]] <- whichchoro(as.character(i+13),type,boro)
+    }
+  }
+  return(l)
+}
+
+# Lists to put NYC choropleths
+cball <- list()
+cbpest <- list()
+cbhandling <- list()
+cbfacility <- list()
+
+# Lists to put Bronx choropleths
+ball <- list()
+bpest <- list()
+bhandling <- list()
+bfacility <- list()
+
+# Lists to put Kings choropleths
+kall <- list()
+kpest <- list()
+khandling <- list()
+kfacility <- list()
+
+# Lists to put New York choropleths
+nall <- list()
+npest <- list()
+nhandling <- list()
+nfacility <- list()
+
+# Lists to put Queens choropleths
+qall <- list()
+qpest <- list()
+qhandling <- list()
+qfacility <- list()
+
+# Lists to put Richmond choropleths
+rall <- list()
+rpest <- list()
+rhandling <- list()
+rfacility <- list()
+
+cball <- chorolist("all")
+cbpest <- chorolist("pest")
+cbhandling <- chorolist("handling")
+cbfacility <- chorolist("facility")
+
+ball <- chorolist("all","bronx")
+bpest <- chorolist("pest","bronx")
+bhandling <- chorolist("handling","bronx")
+bfacility <- chorolist("facility","bronx")
+
+kall <- chorolist("all","kings")
+kpest <- chorolist("pest","kings")
+khandling <- chorolist("handling","kings")
+kfacility <- chorolist("facility","kings")
+
+nall <- chorolist("all","new york")
+npest <- chorolist("pest","new york")
+nhandling <- chorolist("handling","new york")
+nfacility <- chorolist("facility","new york")
+
+qall <- chorolist("all","queens")
+qpest <- chorolist("pest","queens")
+qhandling <- chorolist("handling","queens")
+qfacility <- chorolist("facility","queens")
+
+rall <- chorolist("all","richmond")
+rpest <- chorolist("pest","richmond")
+rhandling <- chorolist("handling","richmond")
+rfacility <- chorolist("facility","richmond")
